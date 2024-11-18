@@ -30,7 +30,13 @@ func (c *Component) Save(dir string) error {
 		if err != nil {
 			return xerrors.Errorf("failed to marshal %s:%w", *advisory.GHSAID, err)
 		}
-		err = os.WriteFile(filepath.Join(dir, fmt.Sprintf("%s.json", *advisory.GHSAID)), data, os.ModePerm)
+		var vulnName string
+		if advisory.CVEID != nil {
+			vulnName = *advisory.CVEID
+		} else {
+			vulnName = *advisory.GHSAID
+		}
+		err = os.WriteFile(filepath.Join(dir, fmt.Sprintf("%s.json", vulnName)), data, os.ModePerm)
 		if err != nil {
 			return xerrors.Errorf("failed to write %s:%w", *advisory.GHSAID, err)
 		}

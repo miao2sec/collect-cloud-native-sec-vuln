@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/y4ney/cloud-native-security-vuln/internal/component"
+	"github.com/miao2sec/cloud-native-security-vuln/internal/component"
 	"golang.org/x/xerrors"
 	"gopkg.in/yaml.v3"
 	"os"

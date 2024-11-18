@@ -17,10 +17,10 @@ limitations under the License.
 */
 
 import (
+	"github.com/miao2sec/cloud-native-security-vuln/internal/config"
+	"github.com/miao2sec/cloud-native-security-vuln/internal/github"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
-	"github.com/y4ney/cloud-native-security-vuln/internal/config"
-	"github.com/y4ney/cloud-native-security-vuln/internal/github"
 	"golang.org/x/term"
 	"os"
 
@@ -35,7 +35,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "collect cloud native sec vuln",
+	Use:   "collect",
 	Short: "收集云原生安全漏洞",
 	Long: `
 # 编译
@@ -75,14 +75,15 @@ func init() {
 }
 
 func InitLogger() {
-	defaultLogger := zerolog.New(os.Stderr)
-	logLevel := zerolog.TraceLevel
-	zerolog.SetGlobalLevel(logLevel)
+	var (
+		defaultLogger = zerolog.New(os.Stderr)
+		logLevel      = zerolog.TraceLevel
+	)
 
+	zerolog.SetGlobalLevel(logLevel)
 	if term.IsTerminal(int(os.Stdout.Fd())) {
 		defaultLogger = zerolog.New(zerolog.NewConsoleWriter())
 	}
-
 	log.Logger = defaultLogger.With().Timestamp().Stack().Logger()
 }
 
@@ -108,7 +109,9 @@ func Run(cmd *cobra.Command, args []string) {
 		}
 	}
 	collect(conf)
+	return
 }
+
 func genCfgFile() {
 	var (
 		conf           = config.NewConfig()
@@ -122,19 +125,22 @@ func genCfgFile() {
 }
 
 func collect(conf *config.Config) {
-	client := github.NewClient(github.WithToken(conf.Token))
+	var (
+		client = github.NewClient(github.WithToken(conf.Token))
+		err    error
+	)
+
 	for _, component := range conf.Components {
-		advisories, err := client.GetAdvisories(component)
+		component.Advisories, err = client.GetAdvisories(component)
 		if err != nil {
 			log.Logger.Fatal().Str("component", component.Repo).Err(err).Msg("failed to get advisories")
 		}
-		if len(advisories) != 0 {
-			log.Logger.Info().Str("component", component.Repo).Int("count", len(advisories)).Msg("have vuln(s)")
+		if len(component.Advisories) != 0 {
+			log.Logger.Info().Str("component", component.Repo).Int("count", len(component.Advisories)).Msg("have vuln(s)")
 		} else {
 			log.Logger.Debug().Str("Repo", component.Repo).Msg("don't have vuln")
 			continue
 		}
-		component.Advisories = advisories
 		if err = component.Save(conf.CacheDir); err != nil {
 			log.Logger.Fatal().Str("component", component.Repo).Err(err).Msg("failed to save vuln(s)")
 		}

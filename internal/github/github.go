@@ -3,9 +3,9 @@ package github
 import (
 	"context"
 	"github.com/google/go-github/v66/github"
+	"github.com/miao2sec/cloud-native-security-vuln/internal/component"
+	"github.com/miao2sec/cloud-native-security-vuln/internal/config"
 	"github.com/rs/zerolog/log"
-	"github.com/y4ney/cloud-native-security-vuln/internal/component"
-	"github.com/y4ney/cloud-native-security-vuln/internal/config"
 	"golang.org/x/oauth2"
 	"net/http"
 )
