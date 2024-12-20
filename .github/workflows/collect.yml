@@ -28,7 +28,6 @@ jobs:
         with:
           token: ${{ secrets.ORG_REPO_TOKEN }}
           repository: ${{ github.repository_owner }}/${{ env.VULN_LIST_DIR }}
-          path: ${{ env.VULN_LIST_DIR }}
 
       - name: Setup github user email and name
         run: |

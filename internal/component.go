@@ -18,7 +18,7 @@ type Component struct {
 
 func (c *Component) Save(dir string) error {
 	for _, advisory := range c.Advisories {
-		dir := filepath.Join(dir, c.Repo,
+		dir = filepath.Join(dir, c.Repo,
 			strconv.Itoa(advisory.PublishedAt.Year()),
 			fmt.Sprintf("%02d", int(advisory.PublishedAt.Month())),
 		)
