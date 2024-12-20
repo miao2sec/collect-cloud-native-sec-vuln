@@ -38,7 +38,7 @@ jobs:
       - name: Compile collect-cloud-native-sec-vuln
         run: go build -o collect .
       - if: always()
-        name: NVD
+        name: Update
         run: |
           CURRENT_DATE_TIME="update at $(date +'%Y-%m-%d %H:%M:%S')"
           ./scripts/update.sh "$CURRENT_DATE_TIME"
