@@ -2,6 +2,9 @@ name: Update cloud-native-sec-vuln repo
 on:
   schedule:
     - cron: "0 */6 * * *"
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -34,7 +37,6 @@ jobs:
 
       - name: Compile collect-cloud-native-sec-vuln
         run: go build -o collect .
-# 自定义 commit
       - if: always()
         name: NVD
         run: |
