@@ -1,0 +1,42 @@
+name: Update cloud-native-sec-vuln repo
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Update cloud-native-sec-vuln
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.ORG_REPO_TOKEN }}
+      VULN_LIST_DIR: "cloud-native-sec-vuln"
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Check out cloud-native-sec-vuln repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/${{ env.VULN_LIST_DIR }}
+          token: ${{ secrets.ORG_REPO_TOKEN }}
+          path: ${{ env.VULN_LIST_DIR }}
+
+      - name: Setup github user email and name
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+
+      - name: Compile collect-cloud-native-sec-vuln
+        run: go build -o collect .
+# 自定义 commit
+      - if: always()
+        name: NVD
+        run: |
+          CURRENT_DATE_TIME="update at $(date +'%Y-%m-%d %H:%M:%S')"
+          ./scripts/update.sh "$CURRENT_DATE_TIME"
