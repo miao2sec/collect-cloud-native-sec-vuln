@@ -1,7 +1,7 @@
 #!/bin/bash -eu
 
 
-COMMIT_MSG=$2
+COMMIT_MSG=$1
 
 
 
