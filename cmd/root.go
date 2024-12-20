@@ -17,8 +17,7 @@ limitations under the License.
 */
 
 import (
-	"github.com/miao2sec/cloud-native-security-vuln/internal/config"
-	"github.com/miao2sec/cloud-native-security-vuln/internal/github"
+	"github.com/miao2sec/cloud-native-security-vuln/internal"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/term"
@@ -42,16 +41,16 @@ var rootCmd = &cobra.Command{
 go build -o collect
 
 # 生成默认的配置文件
-./collect -g
+collect -g
 
 # 使用默认配置进行漏洞收集
-./collect -r
+collect -r
 
 ## 自定义漏洞数据的缓存路径
-./collect -r -c path/to/cacheDir
+collect -r -c path/to/cacheDir
 
 ## 使用自定义的配置文件进行漏洞收集
-./collect -r -f <config>.yaml
+collect -r -f <config>.yaml
 
 `,
 	Run: Run,
@@ -93,17 +92,17 @@ func Run(cmd *cobra.Command, args []string) {
 		return
 	}
 	var (
-		conf *config.Config
+		conf *internal.Config
 		err  error
 	)
 
 	if cacheDir != "" {
-		conf = config.NewConfig(config.WithCacheDir(cacheDir))
+		conf = internal.NewConfig(internal.WithCacheDir(cacheDir))
 	} else {
-		conf = config.NewConfig()
+		conf = internal.NewConfig()
 	}
 	if cfgFile != "" {
-		conf, err = config.LoadConfFile(cfgFile)
+		conf, err = internal.LoadConfFile(cfgFile)
 		if err != nil {
 			log.Logger.Fatal().Str("config file", cfgFile).Err(err).Msg("failed to load config file")
 		}
@@ -114,7 +113,7 @@ func Run(cmd *cobra.Command, args []string) {
 
 func genCfgFile() {
 	var (
-		conf           = config.NewConfig()
+		conf           = internal.NewConfig()
 		defaultCfgFile = "config.yaml"
 	)
 
@@ -124,9 +123,9 @@ func genCfgFile() {
 	log.Logger.Info().Str("file", defaultCfgFile).Msg("success to generate config file")
 }
 
-func collect(conf *config.Config) {
+func collect(conf *internal.Config) {
 	var (
-		client = github.NewClient(github.WithToken(conf.Token))
+		client = internal.NewClient(internal.WithToken(conf.Token))
 		err    error
 	)
 

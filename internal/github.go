@@ -1,10 +1,8 @@
-package github
+package internal
 
 import (
 	"context"
 	"github.com/google/go-github/v66/github"
-	"github.com/miao2sec/cloud-native-security-vuln/internal/component"
-	"github.com/miao2sec/cloud-native-security-vuln/internal/config"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/oauth2"
 	"net/http"
@@ -33,7 +31,7 @@ func NewClient(opts ...ClientFunc) *Client {
 		opt(c)
 	}
 
-	if c.Token == "" || c.Token == config.Token {
+	if c.Token == "" || c.Token == Token {
 		log.Debug().Msg("token is empty")
 	} else {
 		tc = oauth2.NewClient(c.Ctx, oauth2.StaticTokenSource(&oauth2.Token{AccessToken: c.Token}))
@@ -43,7 +41,7 @@ func NewClient(opts ...ClientFunc) *Client {
 	return c
 }
 
-func (c *Client) GetAdvisories(component *component.Component) ([]*github.SecurityAdvisory, error) {
+func (c *Client) GetAdvisories(component *Component) ([]*github.SecurityAdvisory, error) {
 	advisories, _, err := c.Client.SecurityAdvisories.ListRepositorySecurityAdvisories(c.Ctx,
 		component.Owner, component.Repo, nil)
 	if err != nil {

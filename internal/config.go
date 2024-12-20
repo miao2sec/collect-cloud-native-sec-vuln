@@ -1,7 +1,6 @@
-package config
+package internal
 
 import (
-	"github.com/miao2sec/cloud-native-security-vuln/internal/component"
 	"golang.org/x/xerrors"
 	"gopkg.in/yaml.v3"
 	"os"
@@ -11,10 +10,14 @@ import (
 var (
 	Token      = "write-your-github-token"
 	CacheDir   = "cloud-native-sec-vuln"
-	Components = []*component.Component{
+	Components = []*Component{
 		{
 			Owner: "moby",
 			Repo:  "buildkit",
+		},
+		{
+			Owner: "moby",
+			Repo:  "moby",
 		},
 		{
 			Owner: "opencontainers",
@@ -96,21 +99,19 @@ var (
 )
 
 type Config struct {
-	Token      string                 `yaml:"token,omitempty"`
-	CacheDir   string                 `yaml:"cache_dir,omitempty"`
-	Components []*component.Component `yaml:"components,omitempty"`
+	Token      string       `yaml:"token,omitempty"`
+	CacheDir   string       `yaml:"cache_dir,omitempty"`
+	Components []*Component `yaml:"components,omitempty"`
 }
 type ConfFunc func(*Config)
 
-// WithToken 配置 Token
-func WithToken(token string) ConfFunc {
-	return func(c *Config) { c.Token = token }
-}
+// WithCacheDir 配置缓存目录
 func WithCacheDir(cacheDir string) ConfFunc {
 	return func(c *Config) { c.CacheDir = cacheDir }
 }
 
-func WithComponent(component []*component.Component) ConfFunc {
+// WithComponent 配置组件
+func WithComponent(component []*Component) ConfFunc {
 	return func(c *Config) { c.Components = component }
 }
 
@@ -133,6 +134,7 @@ func (c *Config) Generate(filename string) error {
 	}
 	return os.WriteFile(filename, data, os.ModePerm)
 }
+
 func LoadConfFile(filename string) (*Config, error) {
 	var config *Config
 	data, err := os.ReadFile(filename)
