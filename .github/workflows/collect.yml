@@ -12,16 +12,16 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       REPOSITORY: "cloud-native-sec-vuln"
     steps:
+      - name: Check out cloud-native-sec-vuln repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
       - name: Check out code
         uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - name: Check out cloud-native-sec-vuln repo
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
       - name: Setup github user email and name
         run: |
           git config --global user.email "action@github.com"
