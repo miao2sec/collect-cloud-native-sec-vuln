@@ -12,7 +12,7 @@ jobs:
     name: Update cloud-native-sec-vuln
     runs-on: ubuntu-latest
     env:
-      GITHUB_TOKEN: ${{ secrets.ORG_REPO_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       VULN_LIST_DIR: "cloud-native-sec-vuln"
     steps:
       - name: Check out code

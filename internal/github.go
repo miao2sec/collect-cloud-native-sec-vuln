@@ -6,6 +6,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"golang.org/x/oauth2"
 	"net/http"
+	"os"
 )
 
 type Client struct {
@@ -32,12 +33,16 @@ func NewClient(opts ...ClientFunc) *Client {
 	}
 
 	if c.Token == "" || c.Token == Token {
-		log.Debug().Msg("token is empty")
-	} else {
-		tc = oauth2.NewClient(c.Ctx, oauth2.StaticTokenSource(&oauth2.Token{AccessToken: c.Token}))
+		log.Debug().Msg("token is empty,try to use env GITHUB_TOKEN")
+		c.Token = os.Getenv("GITHUB_TOKEN")
 	}
-
-	c.Client = github.NewClient(tc)
+	if c.Token != "" {
+		tc = oauth2.NewClient(c.Ctx, oauth2.StaticTokenSource(&oauth2.Token{AccessToken: c.Token}))
+		c.Client = github.NewClient(tc)
+	} else {
+		log.Debug().Msg("No valid token found, using unauthenticated client")
+		c.Client = github.NewClient(nil)
+	}
 	return c
 }
 
