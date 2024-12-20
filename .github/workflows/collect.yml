@@ -12,19 +12,22 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       REPOSITORY: "cloud-native-sec-vuln"
     steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version-file: go.mod
-
       - name: Check out cloud-native-sec-vuln repo
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
-
+      - name: Print current directory
+        run: |
+          echo "Current directory: $(pwd)"
+      - name: Check out code
+        uses: actions/checkout@v4
+      - name: Print current directory
+        run: |
+          echo "Current directory: $(pwd)"
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
       - name: Setup github user email and name
         run: |
           git config --global user.email "action@github.com"
@@ -33,7 +36,7 @@ jobs:
       - name: Compile
         run: go build -o collect .
       - if: always()
-        name: Fetch vuln
+        name: Update
         run: |
           CURRENT_DATE_TIME="update at $(date +'%Y-%m-%d %H:%M:%S')"
           ./scripts/update.sh "$CURRENT_DATE_TIME"
