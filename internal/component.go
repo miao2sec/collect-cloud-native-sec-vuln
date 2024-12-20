@@ -16,9 +16,9 @@ type Component struct {
 	Advisories []*github.SecurityAdvisory `yaml:"advisories,omitempty"`
 }
 
-func (c *Component) Save(dir string) error {
+func (c *Component) Save(cacheDir string) error {
 	for _, advisory := range c.Advisories {
-		dir = filepath.Join(dir, c.Repo,
+		dir := filepath.Join(cacheDir, c.Repo,
 			strconv.Itoa(advisory.PublishedAt.Year()),
 			fmt.Sprintf("%02d", int(advisory.PublishedAt.Month())),
 		)

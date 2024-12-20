@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository_owner }}/${{ env.REPOSITORY }}
+          path: ${{ env.REPOSITORY }}
       - name: Check out code
         uses: actions/checkout@v4
       - name: Set up Go
@@ -26,15 +27,8 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-
       - name: Compile
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "Listing current directory contents:"
-          ls -al
-          go build -o collect .
+        run: go build -o collect .
       - if: always()
         name: Update
-        run: |
-          CURRENT_DATE_TIME="update at $(date +'%Y-%m-%d %H:%M:%S')"
-          ./scripts/update.sh "$CURRENT_DATE_TIME"
+        run: ./scripts/update.sh "update at $(date +'%Y-%m-%d %H:%M:%S')"
