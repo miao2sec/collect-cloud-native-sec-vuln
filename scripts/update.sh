@@ -15,7 +15,7 @@ result=0
 
 if [ $result -ne 0 ]; then
   echo "[Err] Revert changes" >&2
-  cd "$VULN_LIST_DIR" && git reset --hard HEAD
+  git reset --hard HEAD
   exit 1
 fi
 
