@@ -8,15 +8,15 @@ if [ -z "$COMMIT_MSG" ]; then
 fi
 
 result=0
-./collect -r -c "${ env.REPOSITORY }"  || result=$?
+./collect -r -c "$REPOSITORY"  || result=$?
 
 if [ $result -ne 0 ]; then
   echo "[Err] Revert changes" >&2
-  cd "${ env.REPOSITORY }" && git reset --hard HEAD
+  cd "$REPOSITORY" && git reset --hard HEAD
   exit 1
 fi
 
-cd "${ env.REPOSITORY }" || exit 1
+cd "$REPOSITORY" || exit 1
 
 if [[ -n $(git status --porcelain) ]]; then
   git add .
