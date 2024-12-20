@@ -11,15 +11,13 @@ if [ -z "$COMMIT_MSG" ]; then
 fi
 
 result=0
-./collect -r -c "$VULN_LIST_DIR"  || result=$?
+./collect -r  || result=$?
 
 if [ $result -ne 0 ]; then
   echo "[Err] Revert changes" >&2
   git reset --hard HEAD
   exit 1
 fi
-
-cd "$VULN_LIST_DIR" || exit 1
 
 if [[ -n $(git status --porcelain) ]]; then
   git add .
