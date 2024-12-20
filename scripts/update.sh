@@ -11,13 +11,15 @@ if [ -z "$COMMIT_MSG" ]; then
 fi
 
 result=0
-./collect -r  || result=$?
+./collect -r -c data  || result=$?
 
 if [ $result -ne 0 ]; then
   echo "[Err] Revert changes" >&2
-  git reset --hard HEAD
+  cd data && git reset --hard HEAD
   exit 1
 fi
+
+cd data || exit 1
 
 if [[ -n $(git status --porcelain) ]]; then
   git add .
