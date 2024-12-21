@@ -2,6 +2,7 @@
 
 cloud-native-security-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
 通过自动化方式，它能帮助你及时获取到相关项目的最新安全信息，以便采取相应的防护措施。
+![img.png](imgs/img_0.png)
 ![img.png](imgs/img_1.png)
 
 所有收集的 JSON 数据通过 Github Action ，
