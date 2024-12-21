@@ -1,11 +1,5 @@
 #!/bin/bash -eu
-
-COMMIT_MSG=$1
-
-if [ -z "$COMMIT_MSG" ]; then
-  echo "commit message required"
-  exit 1
-fi
+export TZ='Asia/Shanghai'
 
 result=0
 ./collect -r -c "$REPOSITORY"  || result=$?
@@ -20,6 +14,6 @@ cd "$REPOSITORY" || exit 1
 
 if [[ -n $(git status --porcelain) ]]; then
   git add .
-  git commit -m "${COMMIT_MSG}"
+  git commit -m "update at $(date +'%Y-%m-%d %H:%M:%S')"
   git push
 fi

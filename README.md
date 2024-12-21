@@ -1,12 +1,19 @@
 # collect-cloud-native-security-vuln: 云原生安全漏洞收集工具
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/miao2sec/collect-cloud-native-security-vuln)
+![Hex.pm](https://img.shields.io/hexpm/l/apa)
+[![Go Report Card](https://goreportcard.com/badge/github.com/miao2sec/collect-cloud-native-security-vuln)](https://goreportcard.com/report/github.com/miao2sec/collect-cloud-native-security-vuln)
+[![FOSSA Status](https://app.fossa.com/api/projects/custom%2B37386%2Fgithub.com%2Fksoclabs%2Fkbom.svg?type=shield)](https://app.fossa.com/projects/custom%2B37386%2Fgithub.com%2Fksoclabs%2Fkbom?ref=badge_shield)
+
 collect-cloud-native-security-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
-通过自动化方式，它能帮助你及时获取到相关项目的最新安全信息，以便采取相应的防护措施。
+
 ![img.png](imgs/img_0.png)
+
+通过自动化方式，它能帮助你及时获取到相关项目的最新安全信息，以便采取相应的防护措施。
+
 ![img.png](imgs/img_1.png)
 
-所有收集的 JSON 数据通过 Github Action ，
-每 6 小时更新在仓库 [cloud-native-sec-vuln](https://github.com/miao2sec/cloud-native-sec-vuln) 中。
+所有收集的 JSON 数据通过 Github Action ， 每 6 小时更新在仓库 [cloud-native-sec-vuln](https://github.com/miao2sec/cloud-native-sec-vuln) 中。
 
 ![img.png](imgs/img.png)
 
@@ -56,11 +63,13 @@ collect-cloud-native-security-vuln 是一款用于收集云原生生态系统中
 
 - 自动收集云原生生态系统中各个组件的安全漏洞信息。
 - 支持自定义配置文件，灵活调整收集策略。
-- 缓存漏洞数据，避免重复查询。
+- 支持自定义缓存目录，随时查看漏洞数据。
 - 支持多种命令行参数，方便用户操作。
 
 ## 0x03 配置说明
+
 配置文件采用 YAML 格式，以下是一个示例配置：
+
 ```yaml
 # token：GitHub API Token，用于访问 GitHub API
 token: write-your-github-token
@@ -100,11 +109,11 @@ components:
 20. Youki
 21. Podman
 
-## 4.2 网络组件
+### 4.2 网络组件
 
 1. Cilium
 
-## 4.3 容器镜像构建
+### 4.3 容器镜像构建
 
 1. Kaniko
 2. BuildKit
@@ -112,6 +121,10 @@ components:
 4. Bazel
 5. img
 6. orca-build
+
+### 4.4 服务网格
+
+1. istio
 
 ## 0x05 贡献指南
 

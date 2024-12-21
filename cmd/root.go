@@ -144,5 +144,15 @@ func collect(conf *internal.Config) {
 			log.Logger.Fatal().Str("component", component.Repo).Err(err).Msg("failed to save vuln(s)")
 		}
 	}
+
+	// update vuln of k8s
+	k8s, err := internal.NewKubernetes()
+	if err != nil {
+		log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to update vuln(s)")
+	}
+	if err = k8s.Save(conf.CacheDir); err != nil {
+		log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to save vuln(s)")
+	}
+	log.Logger.Info().Str("component", "kubernetes").Int("count", len(k8s.Items)).Msg("have vuln(s)")
 	log.Logger.Info().Str("dir", conf.CacheDir).Msg("success to save all vuln(s)")
 }
