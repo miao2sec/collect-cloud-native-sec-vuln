@@ -125,6 +125,12 @@ var (
 			Owner: "cyphar",
 			Repo:  "orca-build",
 		},
+
+		// 服务网格
+		{
+			Owner: "istio",
+			Repo:  "istio",
+		},
 	}
 )
 

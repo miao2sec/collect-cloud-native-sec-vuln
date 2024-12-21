@@ -32,4 +32,4 @@ jobs:
         run: go build -o collect .
       - if: always()
         name: Update
-        run: ./scripts/update.sh "update at $(date +'%Y-%m-%d %H:%M:%S')"
+        run: TZ='Asia/Shanghai' ./scripts/update.sh "update at $(date +'%Y-%m-%d %H:%M:%S')"
