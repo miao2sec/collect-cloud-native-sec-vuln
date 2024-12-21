@@ -68,7 +68,7 @@ func init() {
 	rootCmd.Flags().BoolVarP(&genConf, "gen-config", "g", false, "generate default config file")
 
 	rootCmd.Flags().BoolVarP(&run, "run", "r", false, "begin to collect cloud native security vulnerabilities")
-	rootCmd.Flags().StringVarP(&cacheDir, "cache-dir", "c", "", "specify the cache directory")
+	rootCmd.Flags().StringVarP(&cacheDir, "cache-dir", "c", internal.CacheDir(), "specify the cache directory")
 	rootCmd.Flags().StringVarP(&cfgFile, "cfg-file", "f", "", "specify the config file")
 
 }
