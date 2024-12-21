@@ -9,12 +9,8 @@ import (
 
 var (
 	Token      = "write-your-github-token"
-	CacheDir   = "cloud-native-sec-vuln"
+	vulnDir    = "cloud-native-sec-vuln"
 	Components = []*Component{
-		{
-			Owner: "moby",
-			Repo:  "buildkit",
-		},
 		{
 			Owner: "moby",
 			Repo:  "moby",
@@ -95,6 +91,40 @@ var (
 			Owner: "youki-dev",
 			Repo:  "youki",
 		},
+		{
+			Owner: "containers",
+			Repo:  "podman",
+		},
+		// CNI
+		{
+			Owner: "cilium",
+			Repo:  "cilium",
+		},
+		// Build-Time
+		{
+			Owner: "GoogleContainerTools",
+			Repo:  "kaniko",
+		},
+		{
+			Owner: "moby",
+			Repo:  "buildkit",
+		},
+		{
+			Owner: "containers",
+			Repo:  "buildah",
+		},
+		{
+			Owner: "bazelbuild",
+			Repo:  "bazel",
+		},
+		{
+			Owner: "genuinetools",
+			Repo:  "img",
+		},
+		{
+			Owner: "cyphar",
+			Repo:  "orca-build",
+		},
 	}
 )
 
@@ -114,13 +144,17 @@ func WithCacheDir(cacheDir string) ConfFunc {
 func WithComponent(component []*Component) ConfFunc {
 	return func(c *Config) { c.Components = component }
 }
-
-func NewConfig(opts ...ConfFunc) *Config {
+func CacheDir() string {
 	cacheDir, err := os.UserCacheDir()
 	if err != nil {
 		cacheDir = os.TempDir()
 	}
-	var conf = &Config{Token: Token, Components: Components, CacheDir: filepath.Join(cacheDir, CacheDir)}
+	return filepath.Join(cacheDir, vulnDir)
+
+}
+
+func NewConfig(opts ...ConfFunc) *Config {
+	var conf = &Config{Token: Token, Components: Components, CacheDir: CacheDir()}
 	for _, opt := range opts {
 		opt(conf)
 	}
