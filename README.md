@@ -1,6 +1,6 @@
-# Cloud-Native-Security-Vuln: 云原生安全漏洞收集工具
+# collect-cloud-native-security-vuln: 云原生安全漏洞收集工具
 
-cloud-native-security-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
+collect-cloud-native-security-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
 通过自动化方式，它能帮助你及时获取到相关项目的最新安全信息，以便采取相应的防护措施。
 ![img.png](imgs/img_0.png)
 ![img.png](imgs/img_1.png)
@@ -25,7 +25,7 @@ cloud-native-security-vuln 是一款用于收集云原生生态系统中各个�
 
 1. 确保你的系统已安装 Go 环境，并克隆本项目到本地：
     ```bash
-    git clone https://github.com/miao/cloud-native-security-vuln.git
+    git clone https://github.com/miao2sec/cloud-native-security-vuln.git
     ```
 2. 编译并生成可执行文件
     ```bash
