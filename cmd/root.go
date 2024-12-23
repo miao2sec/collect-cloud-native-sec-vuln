@@ -27,10 +27,11 @@ import (
 )
 
 var (
-	genConf  bool
-	run      bool
-	cacheDir string
-	cfgFile  string
+	genConf           bool
+	run               bool
+	collectKubernetes bool
+	cacheDir          string
+	cfgFile           string
 )
 
 var rootCmd = &cobra.Command{
@@ -67,9 +68,10 @@ func init() {
 	InitLogger()
 	rootCmd.Flags().BoolVarP(&genConf, "gen-config", "g", false, "generate default config file")
 
-	rootCmd.Flags().BoolVarP(&run, "run", "r", false, "begin to collect cloud native security vulnerabilities")
+	rootCmd.Flags().BoolVarP(&run, "run", "r", true, "begin to collect cloud native security vulnerabilities")
 	rootCmd.Flags().StringVarP(&cacheDir, "cache-dir", "c", internal.CacheDir(), "specify the cache directory")
 	rootCmd.Flags().StringVarP(&cfgFile, "cfg-file", "f", "", "specify the config file")
+	rootCmd.Flags().BoolVar(&collectKubernetes, "k8s", true, "collect kubernetes vulnerabilities")
 
 }
 
@@ -107,7 +109,10 @@ func Run(cmd *cobra.Command, args []string) {
 			log.Logger.Fatal().Str("config file", cfgFile).Err(err).Msg("failed to load config file")
 		}
 	}
-	collect(conf)
+	conf.CollectKubernetes = collectKubernetes
+	if run {
+		collect(conf)
+	}
 	return
 }
 
@@ -137,7 +142,7 @@ func collect(conf *internal.Config) {
 		if len(component.Advisories) != 0 {
 			log.Logger.Info().Str("component", component.Repo).Int("count", len(component.Advisories)).Msg("have vuln(s)")
 		} else {
-			log.Logger.Debug().Str("Repo", component.Repo).Msg("don't have vuln")
+			log.Logger.Debug().Str("component", component.Repo).Msg("don't have vuln")
 			continue
 		}
 		if err = component.Save(conf.CacheDir); err != nil {
@@ -146,13 +151,15 @@ func collect(conf *internal.Config) {
 	}
 
 	// update vuln of k8s
-	k8s, err := internal.NewKubernetes()
-	if err != nil {
-		log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to update vuln(s)")
+	if conf.CollectKubernetes {
+		k8s, err := internal.NewKubernetes()
+		if err != nil {
+			log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to update vuln(s)")
+		}
+		if err = k8s.Save(conf.CacheDir); err != nil {
+			log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to save vuln(s)")
+		}
+		log.Logger.Info().Str("component", "kubernetes").Int("count", len(k8s.Items)).Msg("have vuln(s)")
 	}
-	if err = k8s.Save(conf.CacheDir); err != nil {
-		log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to save vuln(s)")
-	}
-	log.Logger.Info().Str("component", "kubernetes").Int("count", len(k8s.Items)).Msg("have vuln(s)")
 	log.Logger.Info().Str("dir", conf.CacheDir).Msg("success to save all vuln(s)")
 }

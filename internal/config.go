@@ -135,9 +135,10 @@ var (
 )
 
 type Config struct {
-	Token      string       `yaml:"token,omitempty"`
-	CacheDir   string       `yaml:"cache_dir,omitempty"`
-	Components []*Component `yaml:"components,omitempty"`
+	Token             string       `yaml:"token,omitempty"`
+	CacheDir          string       `yaml:"cache_dir,omitempty"`
+	CollectKubernetes bool         `yaml:"collect_kubernetes,omitempty"`
+	Components        []*Component `yaml:"components,omitempty"`
 }
 type ConfFunc func(*Config)
 
@@ -160,7 +161,7 @@ func CacheDir() string {
 }
 
 func NewConfig(opts ...ConfFunc) *Config {
-	var conf = &Config{Token: Token, Components: Components, CacheDir: CacheDir()}
+	var conf = &Config{Token: Token, Components: Components, CacheDir: CacheDir(), CollectKubernetes: true}
 	for _, opt := range opts {
 		opt(conf)
 	}
