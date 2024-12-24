@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 import (
-	"github.com/miao2sec/cloud-native-security-vuln/utils"
+	"github.com/miao2sec/collect-cloud-native-security-vuln/utils"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/term"
