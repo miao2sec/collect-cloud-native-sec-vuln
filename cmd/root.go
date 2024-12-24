@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 import (
-	"github.com/miao2sec/cloud-native-security-vuln/internal"
+	"github.com/miao2sec/cloud-native-security-vuln/utils"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/term"
@@ -69,7 +69,7 @@ func init() {
 	rootCmd.Flags().BoolVarP(&genConf, "gen-config", "g", false, "generate default config file")
 
 	rootCmd.Flags().BoolVarP(&run, "run", "r", true, "begin to collect cloud native security vulnerabilities")
-	rootCmd.Flags().StringVarP(&cacheDir, "cache-dir", "c", internal.CacheDir(), "specify the cache directory")
+	rootCmd.Flags().StringVarP(&cacheDir, "cache-dir", "c", utils.CacheDir(), "specify the cache directory")
 	rootCmd.Flags().StringVarP(&cfgFile, "cfg-file", "f", "", "specify the config file")
 	rootCmd.Flags().BoolVar(&collectKubernetes, "k8s", true, "collect kubernetes vulnerabilities")
 
@@ -94,17 +94,17 @@ func Run(cmd *cobra.Command, args []string) {
 		return
 	}
 	var (
-		conf *internal.Config
+		conf *utils.Config
 		err  error
 	)
 
 	if cacheDir != "" {
-		conf = internal.NewConfig(internal.WithCacheDir(cacheDir))
+		conf = utils.NewConfig(utils.WithCacheDir(cacheDir))
 	} else {
-		conf = internal.NewConfig()
+		conf = utils.NewConfig()
 	}
 	if cfgFile != "" {
-		conf, err = internal.LoadConfFile(cfgFile)
+		conf, err = utils.LoadConfFile(cfgFile)
 		if err != nil {
 			log.Logger.Fatal().Str("config file", cfgFile).Err(err).Msg("failed to load config file")
 		}
@@ -118,7 +118,7 @@ func Run(cmd *cobra.Command, args []string) {
 
 func genCfgFile() {
 	var (
-		conf           = internal.NewConfig()
+		conf           = utils.NewConfig()
 		defaultCfgFile = "config.yaml"
 	)
 
@@ -128,9 +128,9 @@ func genCfgFile() {
 	log.Logger.Info().Str("file", defaultCfgFile).Msg("success to generate config file")
 }
 
-func collect(conf *internal.Config) {
+func collect(conf *utils.Config) {
 	var (
-		client = internal.NewClient(internal.WithToken(conf.Token))
+		client = utils.NewClient(utils.WithToken(conf.Token))
 		err    error
 	)
 
@@ -152,7 +152,7 @@ func collect(conf *internal.Config) {
 
 	// update vuln of k8s
 	if conf.CollectKubernetes {
-		k8s, err := internal.NewKubernetes()
+		k8s, err := utils.NewKubernetes()
 		if err != nil {
 			log.Logger.Fatal().Str("component", "kubernetes").Err(err).Msg("failed to update vuln(s)")
 		}
