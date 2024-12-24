@@ -32,7 +32,7 @@ collect-cloud-native-security-vuln 是一款用于收集云原生生态系统中
 
 1. 确保你的系统已安装 Go 环境，并克隆本项目到本地：
     ```bash
-    git clone https://github.com/miao2sec/cloud-native-security-vuln.git
+    git clone https://github.com/miao2sec/collect-cloud-native-security-vuln.git
     ```
 2. 编译并生成可执行文件
     ```bash
