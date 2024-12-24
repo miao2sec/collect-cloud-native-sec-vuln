@@ -1,4 +1,4 @@
-module github.com/miao2sec/collect-cloud-native-security-vuln
+module github.com/miao2sec/collect-cloud-native-sec-vuln
 
 go 1.23.3
 

@@ -17,7 +17,7 @@ limitations under the License.
 */
 
 import (
-	"github.com/miao2sec/collect-cloud-native-security-vuln/cmd"
+	"github.com/miao2sec/collect-cloud-native-sec-vuln/cmd"
 )
 
 func main() {

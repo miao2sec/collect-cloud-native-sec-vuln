@@ -1,11 +1,11 @@
-# collect-cloud-native-security-vuln: 云原生安全漏洞收集工具
+# collect-cloud-native-sec-vuln: 云原生安全漏洞收集工具
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/miao2sec/collect-cloud-native-security-vuln)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/miao2sec/collect-cloud-native-sec-vuln)
 ![Hex.pm](https://img.shields.io/hexpm/l/apa)
-[![Go Report Card](https://goreportcard.com/badge/github.com/miao2sec/collect-cloud-native-security-vuln)](https://goreportcard.com/report/github.com/miao2sec/collect-cloud-native-security-vuln)
+[![Go Report Card](https://goreportcard.com/badge/github.com/miao2sec/collect-cloud-native-sec-vuln)](https://goreportcard.com/report/github.com/miao2sec/collect-cloud-native-sec-vuln)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B37386%2Fgithub.com%2Fksoclabs%2Fkbom.svg?type=shield)](https://app.fossa.com/projects/custom%2B37386%2Fgithub.com%2Fksoclabs%2Fkbom?ref=badge_shield)
 
-collect-cloud-native-security-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
+collect-cloud-native-sec-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
 
 ![img.png](imgs/img_0.png)
 
@@ -32,7 +32,7 @@ collect-cloud-native-security-vuln 是一款用于收集云原生生态系统中
 
 1. 确保你的系统已安装 Go 环境，并克隆本项目到本地：
     ```bash
-    git clone https://github.com/miao2sec/collect-cloud-native-security-vuln.git
+    git clone https://github.com/miao2sec/collect-cloud-native-sec-vuln.git
     ```
 2. 编译并生成可执行文件
     ```bash
