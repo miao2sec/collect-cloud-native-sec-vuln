@@ -131,6 +131,12 @@ var (
 			Owner: "istio",
 			Repo:  "istio",
 		},
+
+		// 容器管理平台
+		{
+			Owner: "rancher",
+			Repo:  "rancher",
+		},
 	}
 )
 
