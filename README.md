@@ -5,6 +5,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/miao2sec/collect-cloud-native-sec-vuln)](https://goreportcard.com/report/github.com/miao2sec/collect-cloud-native-sec-vuln)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B37386%2Fgithub.com%2Fksoclabs%2Fkbom.svg?type=shield)](https://app.fossa.com/projects/custom%2B37386%2Fgithub.com%2Fksoclabs%2Fkbom?ref=badge_shield)
 
+https://github.com/user-attachments/assets/241b2be6-7f0e-4c94-97b5-b3266a75e950
+
+
+
 collect-cloud-native-sec-vuln 是一款用于收集云原生生态系统中各个组件安全漏洞的工具。
 
 ![img.png](imgs/img_0.png)
