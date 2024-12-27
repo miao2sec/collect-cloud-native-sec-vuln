@@ -36,7 +36,7 @@ collect-cloud-native-sec-vuln 是一款用于收集云原生生态系统中各�
     ```
 2. 编译并生成可执行文件
     ```bash
-   cd cloud-native-security-vuln
+   cd collect-cloud-native-sec-vuln.git
    go build -o collect
     ```
 ### 1.2 使用
@@ -133,6 +133,17 @@ components:
 ### 4.6 容器管理平台
 
 1. rancher
+
+### 4.7 协调与服务发现
+
+1. coredns
+2. etcd
+3. zookeeper
+4. kubebrain
+5. nacos
+6. k8gb
+7. eureka
+8. Xline
 
 ## 0x05 贡献指南
 

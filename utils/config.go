@@ -137,6 +137,41 @@ var (
 			Owner: "rancher",
 			Repo:  "rancher",
 		},
+		// 协调与服务发现
+		{
+			Owner: "coredns",
+			Repo:  "coredns",
+		},
+		{
+			Owner: "etcd-io",
+			Repo:  "etcd",
+		},
+		// TODO https://zookeeper.apache.org/security.html
+		{
+			Owner: "apache",
+			Repo:  "zookeeper",
+		},
+		{
+			Owner: "kubewharf",
+			Repo:  "kubebrain",
+		},
+		// TODO
+		{
+			Owner: "alibaba",
+			Repo:  "nacos",
+		},
+		{
+			Owner: "k8gb-io",
+			Repo:  "k8gb",
+		},
+		{
+			Owner: "Netflix",
+			Repo:  "eureka",
+		},
+		{
+			Owner: "xline-kv",
+			Repo:  "Xline",
+		},
 	}
 )
 
@@ -157,6 +192,7 @@ func WithCacheDir(cacheDir string) ConfFunc {
 func WithComponent(component []*Component) ConfFunc {
 	return func(c *Config) { c.Components = component }
 }
+
 func CacheDir() string {
 	cacheDir, err := os.UserCacheDir()
 	if err != nil {
