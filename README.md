@@ -145,6 +145,16 @@ components:
 7. eureka
 8. Xline
 
+### 4.8 密钥管理
+1. chaos-mesh
+2. litmus
+3. chaostoolkit
+4. chaosblade
+5. chaoskube
+6. powerfulseal
+7. kubeinvaders
+8. krkn
+
 ## 0x05 贡献指南
 
 欢迎各位同学参与本项目，共同完善云原生安全漏洞收集工具。以下是贡献指南：

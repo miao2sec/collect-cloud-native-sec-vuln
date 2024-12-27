@@ -172,6 +172,39 @@ var (
 			Owner: "xline-kv",
 			Repo:  "Xline",
 		},
+		// 密钥管理
+		{
+			Owner: "chaos-mesh",
+			Repo:  "chaos-mesh",
+		},
+		{
+			Owner: "litmuschaos",
+			Repo:  "litmus",
+		},
+		{
+			Owner: "chaostoolkit",
+			Repo:  "chaostoolkit",
+		},
+		{
+			Owner: "chaosblade-io",
+			Repo:  "chaosblade",
+		},
+		{
+			Owner: "linki",
+			Repo:  "chaoskube",
+		},
+		{
+			Owner: "powerfulseal",
+			Repo:  "powerfulseal",
+		},
+		{
+			Owner: "lucky-sideburn",
+			Repo:  "kubeinvaders",
+		},
+		{
+			Owner: "krkn-chaos",
+			Repo:  "krkn",
+		},
 	}
 )
 
