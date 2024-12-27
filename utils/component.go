@@ -31,7 +31,7 @@ func (c *Component) Save(cacheDir string) error {
 			return xerrors.Errorf("failed to marshal %s:%w", *advisory.GHSAID, err)
 		}
 		var vulnName string
-		if advisory.CVEID != nil {
+		if advisory.CVEID != nil && *advisory.CVEID != "" {
 			vulnName = *advisory.CVEID
 		} else {
 			vulnName = *advisory.GHSAID
