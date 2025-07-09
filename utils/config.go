@@ -12,6 +12,10 @@ var (
 	vulnDir    = "cloud-native-sec-vuln"
 	Components = []*Component{
 		{
+			Owner: "helm",
+			Repo:  "helm",
+		},
+		{
 			Owner: "moby",
 			Repo:  "moby",
 		},
